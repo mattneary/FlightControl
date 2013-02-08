@@ -1,4 +1,5 @@
-var app = require('./route');
+var app = require('./route'),
+	http = require('http');
  
 app.get({
 	path: /\/api\//,
