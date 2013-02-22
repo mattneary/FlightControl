@@ -1,4 +1,3 @@
-var http = require('http');
 module.exports = (function() {
 	var rules = { GET: [], POST: [] }		
 	var _404 = function(req, res) { res.writeHead(404); res.end(); };
