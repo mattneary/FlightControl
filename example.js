@@ -1,22 +1,19 @@
-var app = require('./route'),
-	http = require('http');
- 
-app.get({
-	path: /\/api\//,
-	cb: function(req, res) {
-		res.end(JSON.stringify({success: true}));
-	}
-}, {
-	path: /\/home\//,
-	cb: function(req, res) {
-		res.end("Hello");
-	}
-}).post({
-	path: /\/api\//,
-	cb: function(req, res) {
-		res.end(JSON.stringify({success: true}));
-	}
-}).e404(function(req, res) {
-	res.end("FAIL");
+// import http and birbal
+var http = require('http'),
+	app = require("./flight");
+
+// create rules
+app.get('/', function(req, res, time) {
+	// string-based rule utilizing middleware
+	res.end("hi, it's "+time+".");
+}, function(handler, req, res) {
+	// middleware fires the handler with
+	// ... additional parameters
+	handler((new Date()).getTime());
+}).post(/^\/new/, function(req, res) {
+	// request vars are parsed and 
+	// ... set to `this.vars`
+	res.end("welcome, "+this.vars.name);
 });
-http.createServer(app).listen(8080);
+
+http.createServer(app).listen(9000);
